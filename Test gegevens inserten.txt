@@ -1,0 +1,50 @@
+INSERT INTO `huisartsenpost` (`id`, `naam`) VALUES (1, 'Kroonhorst');
+
+INSERT INTO `huisartsenpost` (`id`, `naam`) VALUES (2, 'Huisartsenpost');
+
+
+INSERT INTO `huisarts` (`id`, `tussenvoegsel`, `achternaam`, `tel`, `bignr`, `email`, `wachtwoord`, `post`) VALUES (1, 'de', 'Groot', 568, 012345678, 'groot@mail.nl', 'e8636ea013e682faf61f56ce1cb1ab5c', 1);
+
+INSERT INTO `huisarts` (`id`, `tussenvoegsel`, `achternaam`, `tel`, `bignr`, `email`, `wachtwoord`, `post`) VALUES (2, NULL, 'Born', 569, 876543210, 'born@mail.nl', 'e8636ea013e682faf61f56ce1cb1ab5c', 1);
+
+INSERT INTO `huisarts` (`id`, `tussenvoegsel`, `achternaam`, `tel`, `bignr`, `email`, `wachtwoord`, `post`) VALUES (3, NULL, 'Vreendie', 612, 012348765, 'vreendie@mail.nl', 'e8636ea013e682faf61f56ce1cb1ab5c', 2);
+
+
+
+
+INSERT INTO `apotheek` (`id`, `naam`, `woonplaats`, `straat`, `hsnr`, `postcode`, `tel`, `email`, `wachtwoord`) VALUES (1, 'Benu', 'Amsterdam', 'Bijlmerplein', '544', '1102 DS', 234, 'benu@mail.nl', 'e8636ea013e682faf61f56ce1cb1ab5c');
+
+INSERT INTO `apotheek` (`id`, `naam`, `woonplaats`, `straat`, `hsnr`, `postcode`, `tel`, `email`, `wachtwoord`) VALUES (2, 'Alphega', 'Amsterdam', 'Annie Romeinplein', '34', '1103 JL', 895, 'alphega@mail.nl', 'e8636ea013e682faf61f56ce1cb1ab5c');
+
+INSERT INTO `apotheek` (`id`, `naam`, `woonplaats`, `straat`, `hsnr`, `postcode`, `tel`, `email`, `wachtwoord`) VALUES (3, 'Ganzenhoef', 'Amsterdam', 'Bijlmerdreef', '1169', '1103 TT', 374, 'ganzenhoef@mail.nl', 'e8636ea013e682faf61f56ce1cb1ab5c');
+
+
+
+
+INSERT INTO `patient` (`id`, `vzknr`, `voornaam`, `tussenvoegsel`, `achternaam`, `geboortedatum`, `wnplts`, `straat`, `hsnr`, `postcode`, `tel`, `actief`, `huisarts`, `apotheek`, `email`) VALUES (1, 311, 'Jan', NULL, 'Peters', '1990-11-16', 'Amsterdam', 'Dreef', '11', '1123 GH', 123, true, 2, 1, 'peters@mail.nl');
+
+INSERT INTO `patient` (`id`, `vzknr`, `voornaam`, `tussenvoegsel`, `achternaam`, `geboortedatum`, `wnplts`, `straat`, `hsnr`, `postcode`, `tel`, `actief`, `huisarts`, `apotheek`, `email`) VALUES (2, 323, 'Jurre', NULL, 'Mouni', '1990-10-30', 'Amsterdam', 'Reigersbos', '23', '1189 IJ', 456, true, 1, 3, 'mouni@mail.nl');
+
+INSERT INTO `patient` (`id`, `vzknr`, `voornaam`, `tussenvoegsel`, `achternaam`, `geboortedatum`, `wnplts`, `straat`, `hsnr`, `postcode`, `tel`, `actief`, `huisarts`, `apotheek`, `email`) VALUES (3, 334, 'Micheal', 'van', 'Veen', '1980-10-22', 'Amsterdam', 'Made', '5', '1190 UJ', 789, true, 2, 3, 'veen@mail.nl');
+
+INSERT INTO `patient` (`id`, `vzknr`, `voornaam`, `tussenvoegsel`, `achternaam`, `geboortedatum`, `wnplts`, `straat`, `hsnr`, `postcode`, `tel`, `actief`, `huisarts`, `apotheek`, `email`) VALUES (4, 355, 'Karel', NULL, 'Verwaaij', '1978-12-08', 'Amsterdam', 'Vink', '14', '1109 AS', 900, false, 1, 2, 'verwaaij@mail.nl');
+
+INSERT INTO `patient` (`id`, `vzknr`, `voornaam`, `tussenvoegsel`, `achternaam`, `geboortedatum`, `wnplts`, `straat`, `hsnr`, `postcode`, `tel`, `actief`, `huisarts`, `apotheek`, `email`) VALUES (5, 412, 'Kim', NULL, 'Ketam', '1969-08-05', 'Amsterdam', 'Dreef', '34', '1123 GH', 897, false, 2, 1, 'ketam@mail.nl');
+
+INSERT INTO `patient` (`id`, `vzknr`, `voornaam`, `tussenvoegsel`, `achternaam`, `geboortedatum`, `wnplts`, `straat`, `hsnr`, `postcode`, `tel`, `actief`, `huisarts`, `apotheek`, `email`) VALUES (6, 423, 'Samantha', NULL, 'Sinu', '1970-01-05', 'Amsterdam', 'Zaan', '39', '1187 YU', 563, false, 3, 2, 'sinu@mail.nl');
+
+INSERT INTO `patient` (`id`, `vzknr`, `voornaam`, `tussenvoegsel`, `achternaam`, `geboortedatum`, `wnplts`, `straat`, `hsnr`, `postcode`, `tel`, `actief`, `huisarts`, `apotheek`, `email`) VALUES (7, 466, 'Kees', NULL, 'Kauq', '1980-03-22', 'Amsterdam', 'Doorloop', '45', '1126 CV', 566, false, 1, 1, 'kauq@mail.nl');
+
+
+INSERT INTO `betaalmethode` (`id`, `naam`, `oms`) VALUES (1, 'PIN', 'Achteraf betalen met pin');
+INSERT INTO `betaalmethode` (`id`, `naam`, `oms`) VALUES (2, 'Contant', 'Betaald Contant');
+
+
+
+
+INSERT INTO `orderstatus` (`id`, `oms`) VALUES (1, 'Actief');
+
+INSERT INTO `orderstatus` (`id`, `oms`) VALUES (2, 'Voltooid');
+
+INSERT INTO `orderstatus` (`id`, `oms`) VALUES (3, 'Inactief verklaard');
+

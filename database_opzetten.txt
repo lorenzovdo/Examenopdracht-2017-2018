@@ -1,0 +1,387 @@
+
+
+CREATE TABLE IF NOT EXISTS `huisartsenpost` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`naam` VARCHAR(100) NOT NULL,
+  
+PRIMARY KEY (`id`))
+
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `huisarts` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`tussenvoegsel` VARCHAR(50) NULL,
+  
+`achternaam` VARCHAR(100) NOT NULL,
+  
+`tel` INT NOT NULL,
+  `bignr` INT NOT NULL,
+  
+`email` VARCHAR(100) NOT NULL,
+  
+`wachtwoord` VARCHAR(100) NOT NULL,
+  
+`post` INT NOT NULL,
+  
+PRIMARY KEY (`id`),
+  
+UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  
+INDEX `fk_Huisarts_Huisartsenpost_idx` (`post` ASC),
+  
+UNIQUE INDEX `bignr_UNIQUE` (`bignr` ASC),
+  
+CONSTRAINT `fk_Huisarts_Huisartsenpost`
+
+FOREIGN KEY (`post`)
+ 
+REFERENCES `huisartsenpost` (`id`)
+ 
+ON DELETE NO ACTION
+ 
+ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+
+CREATE TABLE IF NOT EXISTS `apotheek` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`naam` VARCHAR(100) NOT NULL,
+  
+`woonplaats` VARCHAR(500) NOT NULL,
+  
+`straat` VARCHAR(100) NOT NULL,
+  
+`hsnr` VARCHAR(10) NOT NULL,
+  
+`postcode` VARCHAR(10) NOT NULL,
+  
+`tel` INT NOT NULL,
+  
+`email` VARCHAR(100) NOT NULL,
+  
+`wachtwoord` VARCHAR(100) NOT NULL,
+  
+PRIMARY KEY (`id`),
+  
+UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `patient` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`vzknr` INT NOT NULL,
+  
+`voornaam` VARCHAR(100) NOT NULL,
+  
+`tussenvoegsel` VARCHAR(50) NULL,
+  
+`achternaam` VARCHAR(100) NOT NULL,
+  
+`geboortedatum` DATE NOT NULL,
+  
+`wnplts` VARCHAR(100) NOT NULL,
+  
+`straat` VARCHAR(100) NOT NULL,
+  
+`hsnr` VARCHAR(10) NOT NULL,
+  
+`postcode` VARCHAR(10) NOT NULL,
+  
+`tel` INT NOT NULL,
+  
+`actief` TINYINT(1) NOT NULL,
+  
+`huisarts` INT NOT NULL,
+  
+`apotheek` INT NOT NULL,
+  
+`email` VARCHAR(100) NOT NULL,
+  
+PRIMARY KEY (`id`),
+  
+INDEX `fk_Patient_Huisarts_idx` (`huisarts` ASC),
+  
+INDEX `fk_Patient_Apotheker_idx` (`apotheek` ASC),
+  
+UNIQUE INDEX `vzknr_UNIQUE` (`vzknr` ASC),
+  
+UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  
+CONSTRAINT `fk_Patient_Huisarts`
+    
+FOREIGN KEY (`huisarts`)
+    
+REFERENCES `huisarts` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_Patient_Apotheker`
+    
+FOREIGN KEY (`apotheek`)
+    
+REFERENCES `apotheek` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `betaalmethode` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`naam` VARCHAR(100) NOT NULL,
+  
+`oms` VARCHAR(100) NOT NULL,
+  
+PRIMARY KEY (`id`))
+
+ENGINE = InnoDB;
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `orderstatus` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`oms` VARCHAR(500) NOT NULL,
+  
+PRIMARY KEY (`id`))
+
+ENGINE = InnoDB;
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `order` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`patient` INT NOT NULL,
+ 
+`bedrag` FLOAT NOT NULL,
+  
+`btlmet` INT NULL,
+  
+`akng` INT NOT NULL,
+  
+`orderstatus` INT NOT NULL,
+  
+PRIMARY KEY (`id`),
+  
+INDEX `fk_Order_Patient_idx` (`patient` ASC),
+  
+INDEX `fk_Order_Betaalmethode_idx` (`btlmet` ASC),
+  
+INDEX `fk_Order_Orderstatus_idx` (`orderstatus` ASC),
+  
+CONSTRAINT `fk_Order_Patient`
+    
+FOREIGN KEY (`patient`)
+    
+REFERENCES `patient` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_Order_Betaalmethode`
+    
+FOREIGN KEY (`btlmet`)
+    
+REFERENCES `betaalmethode` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_Order_Orderstatus`
+    
+FOREIGN KEY (`orderstatus`)
+   
+REFERENCES `orderstatus` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `medicijnen` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`naam` VARCHAR(100) NOT NULL,
+  
+`types` VARCHAR(100) NULL,
+  
+`beschrijving` VARCHAR(500) NOT NULL,
+  
+`voorraad` INT NOT NULL,
+  
+`akb` INT NOT NULL,
+  
+`verzekerd` TINYINT(1) NOT NULL,
+  
+`bbt` INT NOT NULL,
+  
+`wov` DATE NULL,
+  
+PRIMARY KEY (`id`))
+
+ENGINE = InnoDB;
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `orderregels` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`order` INT NOT NULL,
+  
+`medicijn` INT NOT NULL,
+  
+`aantal` INT NOT NULL,
+  
+`datum` DATE NOT NULL,
+  
+`tijd` VARCHAR(5) NOT NULL,
+  
+`orderActief` TINYINT(1) NOT NULL,
+  
+PRIMARY KEY (`id`, `order`, `medicijn`),
+  
+INDEX `fk_Orderregels_Medicijnen_idx` (`medicijn` ASC),
+  
+CONSTRAINT `fk_Orderregels_Order`
+    
+FOREIGN KEY (`order`)
+    
+REFERENCES `order` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_Orderregels_Medicijnen`
+    
+FOREIGN KEY (`medicijn`)
+    
+REFERENCES `medicijnen` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `allergieen` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`patient` INT NOT NULL,
+  
+`medicijn` INT NOT NULL,
+  
+PRIMARY KEY (`id`,`patient`, `medicijn`),
+  
+CONSTRAINT `fk_allergieen_patient`
+    
+FOREIGN KEY (`patient`)
+    
+REFERENCES `patient` (`id`),
+  
+CONSTRAINT `fk_allergieen_Medicijnen`
+    
+FOREIGN KEY (`medicijn`)
+    
+REFERENCES `medicijnen` (`id`)
+)
+
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `bezorger` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`voornaam` VARCHAR(100) NOT NULL,
+  
+`tussenvoegsel` VARCHAR(50) NULL,
+  
+`achternaam` VARCHAR(100) NOT NULL,
+  
+`tel` INT NOT NULL,
+  
+`email` VARCHAR(100) NOT NULL,
+  
+`wachtwoord` VARCHAR(100) NOT NULL,
+  
+PRIMARY KEY (`id`),
+  
+UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  
+`id` INT NOT NULL AUTO_INCREMENT,
+  
+`voornaam` VARCHAR(100) NOT NULL,
+  
+`tussenvoegsel` VARCHAR(50) NULL,
+  
+`achternaam` VARCHAR(100) NOT NULL,
+  
+`tel` INT NOT NULL,
+  
+`email` VARCHAR(100) NOT NULL,
+  
+`wachtwoord` VARCHAR(100) NOT NULL,
+  
+PRIMARY KEY (`id`),
+  
+UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+
+ENGINE = InnoDB;
+
+
