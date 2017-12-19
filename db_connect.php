@@ -1,8 +1,8 @@
 <?php
 	$servername = "localhost";
-	$username = "root";
-    $password = "";
-	$dbname = "aaapotheek";
+	$username   = "NAAM";
+    	$password   = "WACHTWOORD";
+	$dbname     = "DATABASENAAM";
     //$port   = 3306;
 	/*
 	switch($_SERVER["HTTP_HOST"])
